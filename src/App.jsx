@@ -1,9 +1,3 @@
-// --Red-500: hsl(10, 79%, 65%);
-// --Blue-300: hsl(186, 34%, 65%);
-// --Brown-950: hsl(25, 47%, 15%);
-// --Brown-400: hsl(28, 10%, 53%);
-// --Red-100: hsl(26, 66%, 93%);
-
 const data = [
   {
     day: "mon",
@@ -40,7 +34,7 @@ const App = () => {
   const currDay = currentDate.getDay();
 
   return (
-    <div className="w-[400px]">
+    <div className="sm:w-[400px] w-[300px] p-2 mx-auto">
       <div className="flex justify-between items-center text-white bg-[var(--Red-500)] rounded-md p-4">
         <div>
           <p>My balance</p>
@@ -53,17 +47,24 @@ const App = () => {
         <p className="text-[26px] font-bold text-[var(--Brown-950)]">
           Spending - Last 7 days
         </p>
-
-        <div className="grid grid-cols-7 items-end mt-10">
+        <div className="grid grid-cols-7 gap-x-2 items-end mt-2">
           {data.map(({ day, amount }, index) => (
-            <div key={day}>
+            <div
+              key={day}
+              className="flex flex-col items-center group cursor-pointer"
+            >
+              <span className="bg-[var(--Brown-950)] text-white mb-1 rounded-md text-base invisible group-hover:visible font-semibold p-1">
+                ${amount}
+              </span>
               <span
                 style={{ height: amount * 2 }}
                 className={`${
-                  6 === index ? "bg-[var(--Blue-300)]" : "bg-[var(--Red-500)]"
-                } w-10 block rounded-md hover:opacity-70 cursor-pointer transition-all`}
+                  (currDay === 0 ? 6 : currDay - 1) === index
+                    ? "bg-[var(--Blue-300)]"
+                    : "bg-[var(--Red-500)]"
+                } sm:w-10 w-8 block rounded-md group-hover:opacity-70 transition-all`}
               ></span>
-              <p className="text-(--Brown-400)">{day}</p>
+              <p className="text-[var(--Brown-400)]">{day}</p>
             </div>
           ))}
         </div>
